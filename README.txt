@@ -1,0 +1,1 @@
+This is the blog from the CakePHP tutorial
