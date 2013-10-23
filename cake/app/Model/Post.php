@@ -54,7 +54,7 @@ class Post extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-/*
+
 	public $belongsTo = array(
 		'User' => array(
 			'className' => 'User',
@@ -69,5 +69,5 @@ class Post extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-*/
+
 }

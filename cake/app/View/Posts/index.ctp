@@ -18,11 +18,18 @@
 		<td><?php echo h($post['Post']['modified']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $post['Post']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $post['Post']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $post['Post']['id']), null, __('Are you sure you want to delete # %s?', $post['Post']['id'])); ?>
+			<?php 
+				// This checks to see if the user owns the post
+				// or if it is an admin
+				if (($current_user['id'] == $post['Post']['user_id']) || ($current_user['role'] == 'admin')) {
+					echo $this->Html->link(__('Edit'), array('action' => 'edit', $post['Post']['id']));
+				
+					echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $post['Post']['id']), null, __('Are you sure you want to delete # %s?', $post['Post']['id']));
+				} 
+			?>
 		</td>
 	</tr>
-<?php endforeach; ?>
+	<?php endforeach; ?>
 	</table>
 	<p>
 	<?php
@@ -42,7 +49,13 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Post'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Comments'), array('controller' => 'comments', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comment'), array('controller' => 'comments', 'action' => 'add')); ?> </li>
+		<li><?php
+
+				if($current_user['role'] == 'admin') {
+					echo $this->Html->link(__('List Users'), array('controller' => 'users','action' => 'index'));
+				}
+
+
+		?></li>
 	</ul>
 </div>

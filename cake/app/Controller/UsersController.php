@@ -99,5 +99,16 @@ class UsersController extends AppController {
 		$this->Session->setFlash('User was not deleted');
 		$this->redirect(array('action' => 'index'));
 	}
+
+	public function admin($id = null) {
+		$this->User->id = $id;
+
+		if (!$this->User->exists()) {
+			throw new NotFoundException('Invalid user');
+		}
+
+		$this->User->set('role', 'admin');
+		$this->redirect(array('action' => 'index'));
+	}
 }
 ?>

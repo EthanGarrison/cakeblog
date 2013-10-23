@@ -31,8 +31,22 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Post'), array('action' => 'edit', $post['Post']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Post'), array('action' => 'delete', $post['Post']['id']), null, __('Are you sure you want to delete # %s?', $post['Post']['id'])); ?> </li>
+		<li><?php
+			
+			if (($current_user['id'] == $post['Post']['user_id']) || ($current_user['role'] == 'admin')) {
+				echo $this->Html->link(__('Edit Post'), array('action' => 'edit', $post['Post']['id']));
+			}
+
+		?></li>
+
+		<li><?php
+			// This checks to see if the user owns the post
+			// or if it is an admin
+			if (($current_user['id'] == $post['Post']['user_id']) || ($current_user['role'] == 'admin')) {
+				echo $this->Form->postLink(__('Delete Post'), array('action' => 'delete', $post['Post']['id']), null, __('Are you sure you want to delete # %s?', $post['Post']['id']));
+			}
+
+		?></li>
 		<li><?php echo $this->Html->link(__('List Posts'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Post'), array('action' => 'add')); ?> </li>
 	</ul>
@@ -60,8 +74,16 @@
 			<td><?php echo $comment['modified']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'comments', 'action' => 'view', $comment['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'comments', 'action' => 'edit', $comment['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'comments', 'action' => 'delete', $comment['id']), null, __('Are you sure you want to delete # %s?', $comment['id'])); ?>
+				<?php
+					if ($current_user['id'] == $post['Post']['user_id']) {
+						echo $this->Html->link(__('Edit'), array('controller' => 'comments', 'action' => 'edit', $comment['id'])); 
+					}
+				?>
+				<?php 
+					if ($current_user['id'] == $post['Post']['user_id']) {
+						echo $this->Form->postLink(__('Delete'), array('controller' => 'comments', 'action' => 'delete', $comment['id']), null, __('Are you sure you want to delete # %s?', $comment['id'])); 
+					}
+				?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -70,7 +92,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Comment'), array('controller' => 'comments', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New Comment'), array('controller' => 'comments', 'action' => 'add', $post['Post']['id'])); ?> </li>
 		</ul>
 	</div>
 </div>

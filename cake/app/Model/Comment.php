@@ -73,7 +73,6 @@ class Comment extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-*/
 		)
-	);
+*/	);
 }

@@ -43,7 +43,7 @@ class User extends AppModel {
 		    )
 		)
 	);
-/*
+
 	public $hasMany = array(
 		'Post' => array(
 			'className' => 'Post',
@@ -55,7 +55,7 @@ class User extends AppModel {
 			'foreignKey' => 'comment_id'
 		)
 	);
-*/
+
 
 	
 	public function matchPasswords($data) {

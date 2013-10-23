@@ -3,7 +3,8 @@
 	<fieldset>
 		<legend><?php echo __('Add Comment'); ?></legend>
 	<?php
-		echo $this->Form->input('post_id');
+		echo $this->Form->input('user_id', array('type'=>'hidden', 'value' => $current_user['id']));
+		echo $this->Form->input('post_id', array('type'=>'hidden', 'value' => $post_id));
 		echo $this->Form->input('name');
 		echo $this->Form->input('content');
 	?>
