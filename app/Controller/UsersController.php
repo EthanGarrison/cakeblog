@@ -90,25 +90,35 @@ class UsersController extends AppController {
 		
 		if (!$id) {
 			$this->Session->setFlash('Invalid id for user');
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('controller' => 'posts', 'action'=>'index'));
 		}
 		if ($this->User->delete($id)) {
 			$this->Session->setFlash('User deleted');
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('controller' => 'posts', 'action'=>'index'));
 		}
 		$this->Session->setFlash('User was not deleted');
-		$this->redirect(array('action' => 'index'));
+		$this->redirect(array('controller' => 'posts', 'action' => 'index'));
 	}
 
-	public function admin($id = null) {
+	public function promote($id = null) {
 		$this->User->id = $id;
+		
+//		$this->set('userRole', $userRole);
 
 		if (!$this->User->exists()) {
 			throw new NotFoundException('Invalid user');
 		}
-
-		$this->User->set('role', 'admin');
-		$this->redirect(array('action' => 'index'));
+		
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->User->save($this->request->data)) {
+				$this->Session->setFlash('The user has been promoted');
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash('The user could not be saved. Please, try again.');
+			}
+		} else {
+			$this->request->data = $this->User->read();
+		}
 	}
 }
 ?>

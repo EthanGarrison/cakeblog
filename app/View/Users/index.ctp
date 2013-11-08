@@ -27,12 +27,9 @@
 			    <?php echo $this->Html->link('Edit', array('action' => 'edit', $user['User']['id'])); ?>
 			    <?php echo $this->Form->postLink('Delete', array('action' => 'delete', $user['User']['id']), array('confirm'=>'Are you sure you want to delete that user?')); ?>
 		    <?php endif; ?>
-		    <?php 
-		    	if ($current_user['role'] == 'admin' && $user['User']['role'] != 'admin') {
-
-		    		echo $this->Html->link('Create Admin', array('action' => 'admin', $user['User']['id']), array('confirm'=>'Are you sure you want to set this user as an admin?'));
-				}
-			?>
+		    <?php if ($current_user['role'] == 'admin'): ?>
+		    	<?php echo $this->Html->link('Create Admin', array('action' => 'promote', $user['User']['id'])); ?>
+		    <?php endif; ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

@@ -6,6 +6,9 @@
 		echo $this->Form->input('name');
 		echo $this->Form->input('username');
 		echo $this->Form->input('email');
+	if($current_user['role'] == 'admin'){
+		echo $this->Form->radio('role', array('regular' => 'regular', 'admin' => 'admin'), array('value' => 'regular'));
+	}
 	?>
 	</fieldset>
 <?php echo $this->Form->end('Submit');?>

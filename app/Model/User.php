@@ -47,12 +47,12 @@ class User extends AppModel {
 	public $hasMany = array(
 		'Post' => array(
 			'className' => 'Post',
-			'foreignKey' => 'post_id',
+			'foreignKey' => 'user_id',
 			'dependent' => true
 		),
 		'Comment' => array(
 			'className' => 'Comment',
-			'foreignKey' => 'comment_id'
+			'foreignKey' => 'user_id'
 		)
 	);
 
@@ -66,7 +66,7 @@ class User extends AppModel {
 	    return false;
 	}
 	
-	public function beforeSave() {
+	public function beforeSave($options = array()) {
 	    if (isset($this->data['User']['password'])) {
 	        $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
 	    }

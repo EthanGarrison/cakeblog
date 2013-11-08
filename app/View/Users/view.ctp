@@ -21,6 +21,11 @@
 			<?php echo $user['User']['email']; ?>
 			&nbsp;
 		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>>Role</dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $user['User']['role']; ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">
@@ -30,7 +35,6 @@
 		    <li><?php echo $this->Html->link('Edit User', array('action' => 'edit', $user['User']['id'])); ?> </li>
 		    <li><?php echo $this->Form->postLink('Delete User', array('action' => 'delete', $user['User']['id']), array('confirm'=>'Are you sure you want to delete that user?')); ?> </li>
 		<?php endif; ?>
-		<li><?php echo $this->Html->link('List Users', array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link('New User', array('action' => 'add')); ?> </li>
 	</ul>
 </div>
